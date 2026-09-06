@@ -2,36 +2,28 @@ import numpy as np
 from pyproj import Transformer
 
 
+# Real first GPS point of IO-VNBD S1 dataset
+ORIGIN_LAT = 52.40166
+ORIGIN_LON = -1.50529
+
+
 def latlon_to_local_xy(
     latitude,
     longitude,
-    origin_latitude=None,
-    origin_longitude=None
+    origin_latitude=ORIGIN_LAT,
+    origin_longitude=ORIGIN_LON
 ):
     """
     Convert GPS latitude/longitude to local X/Y coordinates in metres.
 
-    The first GPS point can be used as the local origin:
-        X = 0 m
-        Y = 0 m
-
-    Returns:
-        x, y: local coordinates in metres
+    X = Easting difference
+    Y = Northing difference
     """
 
     latitude = np.asarray(latitude, dtype=float)
     longitude = np.asarray(longitude, dtype=float)
 
-    if origin_latitude is None:
-        origin_latitude = latitude[0]
-
-    if origin_longitude is None:
-        origin_longitude = longitude[0]
-
-    # Choose UTM zone from the origin longitude.
     utm_zone = int((origin_longitude + 180) // 6) + 1
-
-    # Northern hemisphere EPSG codes: 32601–32660
     epsg = 32600 + utm_zone
 
     transformer = Transformer.from_crs(
@@ -40,17 +32,65 @@ def latlon_to_local_xy(
         always_xy=True
     )
 
-    # Project all GPS points.
-    east, north = transformer.transform(longitude, latitude)
+    east, north = transformer.transform(
+        longitude,
+        latitude
+    )
 
-    # Project the origin.
     origin_east, origin_north = transformer.transform(
         origin_longitude,
         origin_latitude
     )
 
-    # Shift origin to (0, 0).
     x = east - origin_east
     y = north - origin_north
 
     return x, y
+
+
+def local_xy_to_latlon(
+    x,
+    y,
+    origin_latitude=ORIGIN_LAT,
+    origin_longitude=ORIGIN_LON,
+):
+    """
+    Convert local X/Y coordinates in metres back to
+    GPS latitude/longitude.
+
+    Uses the same UTM zone and origin as
+    latlon_to_local_xy().
+    """
+
+    x = np.asarray(x, dtype=float)
+    y = np.asarray(y, dtype=float)
+
+    utm_zone = int((origin_longitude + 180) // 6) + 1
+    epsg = 32600 + utm_zone
+
+    transformer = Transformer.from_crs(
+        "EPSG:4326",
+        f"EPSG:{epsg}",
+        always_xy=True
+    )
+
+    origin_east, origin_north = transformer.transform(
+        origin_longitude,
+        origin_latitude
+    )
+
+    east = x + origin_east
+    north = y + origin_north
+
+    inverse_transformer = Transformer.from_crs(
+        f"EPSG:{epsg}",
+        "EPSG:4326",
+        always_xy=True
+    )
+
+    longitude, latitude = inverse_transformer.transform(
+        east,
+        north
+    )
+
+    return latitude, longitude
