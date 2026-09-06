@@ -1,0 +1,47 @@
+{
+  "prediction_name": "TrackSense AI+EKF Pipeline",
+  "pass_fail": {
+    "passed": true,
+    "target_drift_pct": 5.0,
+    "actual_max_drift_pct": 4.559038120229418,
+    "actual_mean_drift_pct": 4.288941223120236,
+    "summary": "PASS: All blackout segments met target drift ceiling of <5.0%. Max drift observed: 4.56% (Mean: 4.29%)."
+  },
+  "overall_metrics": {
+    "rmse_m": 10.501576259577309,
+    "mae_m": 8.263752155764937,
+    "max_error_m": 22.255043181221176,
+    "percentile_95_m": 19.299860279006626,
+    "mean_drift_pct": 4.288941223120236,
+    "max_drift_pct": 4.559038120229418,
+    "total_blackout_distance_m": 985.7325153812824
+  },
+  "segment_metrics": [
+    {
+      "segment_name": "Tunnel 1 (500m)",
+      "start_time_s": 40.0,
+      "end_time_s": 70.0,
+      "duration_s": 30.0,
+      "distance_traveled_m": 497.5803527031325,
+      "end_drift_distance_m": 19.996979771955633,
+      "drift_percentage": 4.018844326011054,
+      "rmse_m": 11.554910850865983,
+      "mae_m": 9.998489885977781,
+      "max_error_m": 19.996979771955633,
+      "passed_target": true
+    },
+    {
+      "segment_name": "Tunnel 2 (500m)",
+      "start_time_s": 120.0,
+      "end_time_s": 150.0,
+      "duration_s": 30.0,
+      "distance_traveled_m": 488.15216267814986,
+      "end_drift_distance_m": 22.255043181221176,
+      "drift_percentage": 4.559038120229418,
+      "rmse_m": 14.378773339809591,
+      "mae_m": 13.490209457235993,
+      "max_error_m": 22.255043181221176,
+      "passed_target": true
+    }
+  ]
+}
