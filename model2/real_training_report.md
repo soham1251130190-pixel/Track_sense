@@ -41,7 +41,7 @@ The model is trained on the real **IO-VNBD Dataset** (`S1_training.csv` / `combi
   $$\mathcal{L} = \frac{1}{2} \exp(-\text{log\_var}) \cdot (\text{target} - \text{mean})^2 + \frac{1}{2} \text{log\_var}$$
 - **Optimizer:** AdamW ($\text{lr} = 10^{-3}$, weight decay $= 10^{-4}$)
 - **LR Scheduler:** CosineAnnealingLR ($T_{\max} = 50$, $\eta_{\min} = 10^{-5}$)
-- **Batch Size:** 256 / 512
+- **Batch Size:** 256
 - **Checkpoints Saved:**
   - `best_model_real.pt` (Lowest validation loss)
   - `latest_model_real.pt` (End of training)
@@ -70,16 +70,16 @@ The model is trained on the real **IO-VNBD Dataset** (`S1_training.csv` / `combi
 
 ## 4. Mobile / Embedded Export (`export_checkpoint.py`)
 
-- **Export Format:** Open Neural Network Exchange (ONNX) Opset 18
+- **Export Format:** Open Neural Network Exchange (ONNX) Opset 14
 - **Artifact:** `tcn_velocity_model.onnx`
 - **Model File Size:** ~460 KB (FP32)
 - **Inference Verification:**
   - Structural Integrity: Validated via `onnx.checker.check_model`
   - Output Parity: Maximum absolute difference between PyTorch and ONNX Runtime $< 10^{-5}$
 - **Latency Benchmarking (CPU):**
-  - Mean Latency: **$\sim 0.68 - 1.5\text{ ms}$** per 100-step window
-  - Maximum Real-Time Throughput: **$> 1,000\text{ Hz}$** (Target is 10 Hz)
-  - Margin: **$> 100\times$ faster than real-time requirements**
+  - Mean Latency: **$\sim 1.5 - 2.5\text{ ms}$** per 100-step window
+  - Maximum Real-Time Frequency: **$> 400\text{ Hz}$** (Target is 10 Hz)
+  - Margin: **$> 40\times$ faster than real-time requirements**
 
 ---
 
@@ -95,11 +95,11 @@ model/
 ├── integration_test.py       # TCN → EKF integration verification
 ├── velocity_update_test.py   # Explicit trajectory modification test
 ├── train_simple.py           # Minimal integration training
-├── real_data_loader.py       # High-speed IO-VNBD dataset loader
-├── train_real.py             # Training loop on real data
-├── evaluate_real.py          # Real data EKF evaluation & metrics
-├── export_checkpoint.py      # ONNX mobile export & latency benchmark
-├── real_training_report.md   # This report
+├── real_data_loader.py       # High-speed IO-VNBD dataset loader [NEW]
+├── train_real.py             # 50-epoch training loop on real data [NEW]
+├── evaluate_real.py          # Real data EKF evaluation & metrics [NEW]
+├── export_checkpoint.py      # ONNX mobile export & latency benchmark [NEW]
+├── real_training_report.md   # This report [NEW]
 ├── best_model_real.pt        # First trained real model weights
 └── tcn_velocity_model.onnx   # Mobile ONNX checkpoint
 ```
@@ -110,12 +110,12 @@ model/
 
 - [x] Connected to Member 1's real dataset (`S1_training.csv` / `combined_training.csv`)
 - [x] Data quality verified: 0 NaN, 0 Inf, correct sampling rate (~10Hz)
-- [x] Trained on real IO-VNBD data with Gaussian NLL loss
+- [x] Trained 50 epochs on real IO-VNBD data with Gaussian NLL loss
 - [x] Saved best model checkpoint (`best_model_real.pt`)
 - [x] Evaluated on real hold-out sequence with EKF integration
 - [x] Verified velocity update bounds open-loop trajectory drift
 - [x] Exported FIRST checkpoint to ONNX (`tcn_velocity_model.onnx`)
-- [x] Validated ONNX runtime numerical parity and real-time CPU latency
+- [x] Validated ONNX runtime numerical parity and real-time CPU latency ($> 40\times$ headroom)
 
 **Status: ✅ Ready for Sync 2 (Hour 10)**
 

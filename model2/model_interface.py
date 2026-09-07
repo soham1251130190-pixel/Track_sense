@@ -184,4 +184,4 @@ if __name__ == "__main__":
         print(f"   Target unit: km/h")
     except Exception as e:
         print(f"\n[FAIL] Interface test failed: {e}")
-
+        

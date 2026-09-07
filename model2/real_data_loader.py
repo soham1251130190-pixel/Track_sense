@@ -9,7 +9,6 @@ Handles:
 4. Target speed extraction in km/h (speed_kmh)
 5. Chronological Train / Val / Test splitting
 6. PyTorch DataLoader creation
-7. Supports both IO_VNBD_DataLoader and RealDataLoader classes
 """
 import os
 import sys
@@ -57,7 +56,6 @@ def find_data_file(filepath=None):
         os.path.join(os.path.dirname(__file__), '..', 'data', 'combined_training.csv'),
         os.path.join(os.path.dirname(__file__), '..', 'combined_training - combined_training.csv'),
         os.path.join(os.path.dirname(__file__), 'data', 'S1_training.csv'),
-        os.path.join(os.path.dirname(__file__), 'S1_training.csv'),
         'data/S1_training.csv',
         'combined_training - combined_training.csv',
         'S1_training.csv'
@@ -165,6 +163,8 @@ def create_sliding_windows(df, window_size=100, step_size=1):
     # sliding_window_view on axis 0 gives shape (N - window_size + 1, 6, window_size)
     windows = np.lib.stride_tricks.sliding_window_view(features, window_shape=window_size, axis=0)
     
+    # Transpose to shape (N_windows, 6, window_size)
+    # windows shape is (n_windows, 6, window_size)
     if step_size > 1:
         windows = windows[::step_size]
         y = speeds[window_size - 1::step_size]
@@ -248,51 +248,18 @@ def load_real_data(csv_path=None, window_size=100, val_split=0.15, test_split=0.
     return train_loader, val_loader, test_loader, meta
 
 
-class IO_VNBD_DataLoader:
-    """
-    High-level Data Loader Class for Member 1's IO-VNBD dataset.
-    """
-    def __init__(self, csv_path='S1_training.csv', window_size=100, val_split=0.15, test_split=0.15, batch_size=256, step_size=1):
-        self.csv_path = csv_path
-        self.window_size = window_size
-        self.val_split = val_split
-        self.test_split = test_split
-        self.batch_size = batch_size
-        self.step_size = step_size
-        
-        self.train_loader, self.val_loader, self.test_loader, self.meta = load_real_data(
-            csv_path=self.csv_path,
-            window_size=self.window_size,
-            val_split=self.val_split,
-            test_split=self.test_split,
-            batch_size=self.batch_size,
-            step_size=self.step_size
-        )
-        
-    def get_loaders(self):
-        """Returns (train_loader, val_loader, test_loader)."""
-        return self.train_loader, self.val_loader, self.test_loader
-
-
-# Backward compatibility alias
-RealDataLoader = IO_VNBD_DataLoader
-
-
 def test_real_data_loader():
     """Self test for real_data_loader."""
     print("=" * 60)
     print("REAL DATA LOADER TEST")
     print("=" * 60)
     
-    # Test class instantiation
-    loader = IO_VNBD_DataLoader(
-        csv_path='S1_training.csv',
+    train_loader, val_loader, test_loader, meta = load_real_data(
         window_size=100,
         val_split=0.15,
         test_split=0.15,
         batch_size=256
     )
-    train_loader, val_loader, test_loader = loader.get_loaders()
     
     # Check first batch
     for X_b, y_b in train_loader:

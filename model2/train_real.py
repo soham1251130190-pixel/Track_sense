@@ -35,7 +35,7 @@ except Exception:
     pass
 
 from model import build_model, count_parameters
-from real_data_loader import load_real_data, IO_VNBD_DataLoader, RealDataLoader
+from real_data_loader import load_real_data
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -172,17 +172,15 @@ def train_real_tcn(csv_path=None, epochs=50, batch_size=512, lr=1e-3, step_size=
         device = torch.device(device_str)
     print(f"🖥️  Using Compute Device: {device} ({torch.get_num_threads()} CPU threads)")
     
-    # 1. Load Real Data with high temporal resolution using IO_VNBD_DataLoader
-    loader = IO_VNBD_DataLoader(
-        csv_path=csv_path or 'S1_training.csv',
+    # 1. Load Real Data with high temporal resolution (stride=2 for fast convergence)
+    train_loader, val_loader, test_loader, meta = load_real_data(
+        csv_path=csv_path,
         window_size=100,
         val_split=0.15,
         test_split=0.15,
         batch_size=batch_size,
         step_size=step_size
     )
-    train_loader, val_loader, test_loader = loader.get_loaders()
-    meta = loader.meta
     
     # 2. Build Model
     print("\n🧠 Instantiating TCN Model...")
@@ -297,4 +295,4 @@ def train_real_tcn(csv_path=None, epochs=50, batch_size=512, lr=1e-3, step_size=
 
 if __name__ == "__main__":
     train_real_tcn(epochs=50, batch_size=512, lr=1e-3, step_size=2)
-
+    

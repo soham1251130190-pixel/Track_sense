@@ -10,13 +10,6 @@ TEST CASES:
 4. Gradient flows through the model (backpropagation works)
 5. Model can overfit to a single batch (sanity check)
 """
-import sys
-if hasattr(sys.stdout, 'reconfigure'):
-    try:
-        sys.stdout.reconfigure(encoding='utf-8', errors='replace')
-    except Exception:
-        pass
-
 import torch
 import numpy as np
 from model import build_model, count_parameters
@@ -238,3 +231,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    

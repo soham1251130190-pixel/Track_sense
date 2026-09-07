@@ -125,4 +125,3 @@ class RealEKF:
 **Status: ✅ Ready for Sync 1 (Hour 6)**
 
 All integration tests pass. The pipeline works end-to-end on synthetic data with forward speed specified in km/h. Ready to connect to Member 1's real data pipeline.
-
