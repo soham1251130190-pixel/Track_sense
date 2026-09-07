@@ -20,6 +20,30 @@ class BlackoutInterval:
 
 
 @dataclass
+class EvaluationSegment:
+    """Represents an automatically selected trajectory segment for evaluation."""
+    segment_id: str
+    start_time: float
+    end_time: float
+    duration: float
+    start_index: int
+    end_index: int
+    distance_travelled: float
+
+    @property
+    def distance_traveled(self) -> float:
+        return self.distance_travelled
+
+    def to_blackout_interval(self) -> BlackoutInterval:
+        return BlackoutInterval(
+            start_time=self.start_time,
+            end_time=self.end_time,
+            name=self.segment_id,
+        )
+
+
+
+@dataclass
 class TrajectoryData:
     """
     Complete ground truth and raw sensor trajectory data (Person 1 contract).

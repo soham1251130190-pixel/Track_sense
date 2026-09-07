@@ -8,6 +8,7 @@ visualization, and report generation.
 
 from tracksense.eval.datatypes import (
     BlackoutInterval,
+    EvaluationSegment,
     TrajectoryData,
     PredictionData,
     MetricResults,
@@ -17,9 +18,11 @@ from tracksense.eval.datatypes import (
 from tracksense.eval.metrics import EvaluationMetrics
 from tracksense.eval.harness import EvaluationHarness
 from tracksense.eval.blackout import GNSSBlackoutSimulator, simulate_gnss_blackout
+from tracksense.eval.segment_selector import EvaluationSegmentSelector, select_evaluation_segments
 
 __all__ = [
     "BlackoutInterval",
+    "EvaluationSegment",
     "TrajectoryData",
     "PredictionData",
     "MetricResults",
@@ -29,4 +32,6 @@ __all__ = [
     "EvaluationHarness",
     "GNSSBlackoutSimulator",
     "simulate_gnss_blackout",
+    "EvaluationSegmentSelector",
+    "select_evaluation_segments",
 ]
