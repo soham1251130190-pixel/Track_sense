@@ -19,6 +19,7 @@ from tracksense.eval.metrics import EvaluationMetrics
 from tracksense.eval.harness import EvaluationHarness
 from tracksense.eval.blackout import GNSSBlackoutSimulator, simulate_gnss_blackout
 from tracksense.eval.segment_selector import EvaluationSegmentSelector, select_evaluation_segments
+from tracksense.eval.baselines import BaselineModels, naive_dead_reckoning, frozen_gnss
 
 __all__ = [
     "BlackoutInterval",
@@ -34,4 +35,7 @@ __all__ = [
     "simulate_gnss_blackout",
     "EvaluationSegmentSelector",
     "select_evaluation_segments",
+    "BaselineModels",
+    "naive_dead_reckoning",
+    "frozen_gnss",
 ]
