@@ -1,0 +1,63 @@
+# verify_pipeline.py
+"""
+Final pipeline verification - runs end-to-end with all components.
+"""
+
+import numpy as np
+import pandas as pd
+from ekf_fusion_tuned import VehicleEKFTuned
+from p2_model_integration import P2ModelWrapper
+from projection import local_xy_to_latlon, ORIGIN_LAT, ORIGIN_LON
+import matplotlib.pyplot as plt
+
+def verify_pipeline(csv_path="S1_training.csv", model_path="model/tcn_velocity_model.onnx"):
+    """Verify the complete pipeline works end-to-end."""
+    
+    print("="*60)
+    print("PIPELINE VERIFICATION - SYNC 3")
+    print("="*60)
+    
+    # 1. Load data
+    print("\n1. Loading data...")
+    df = pd.read_csv(csv_path)
+    print(f"   ✓ Loaded {len(df)} rows from {csv_path}")
+    
+    # 2. Load model
+    print("\n2. Loading model...")
+    model_wrapper = P2ModelWrapper(model_path, use_onnx=True)
+    print(f"   ✓ Loaded model from {model_path}")
+    
+    # 3. Run EKF
+    print("\n3. Running tuned EKF...")
+    from run_tuned_ekf import run_tuned_ekf
+    results = run_tuned_ekf(csv_path, model_path)
+    print(f"   ✓ EKF completed")
+    
+    # 4. Convert to lat/lon (for map-matching)
+    print("\n4. Converting to lat/lon...")
+    lat, lon = local_xy_to_latlon(
+        results['estimated_xy'][:, 0], 
+        results['estimated_xy'][:, 1],
+        ORIGIN_LAT, 
+        ORIGIN_LON
+    )
+    print(f"   ✓ Converted {len(lat)} points to lat/lon")
+    print(f"   lat range: [{lat.min():.6f}, {lat.max():.6f}]")
+    print(f"   lon range: [{lon.min():.6f}, {lon.max():.6f}]")
+    
+    # 5. Summary
+    print("\n" + "="*60)
+    print("PIPELINE STATUS: ✓ ALL COMPONENTS WORKING")
+    print("="*60)
+    print(f"Data:           {len(df)} rows")
+    print(f"Model:          {model_path}")
+    print(f"EKF Type:       VehicleEKFTuned")
+    print(f"NIS Mean:       {results['nis_values'].mean():.3f} (target: 2.0)")
+    print(f"Pre-Corr Error: {results['pre_errors'].mean():.2f} m")
+    print(f"GPS Rejections: {results['ekf'].n_gps_rejected}/{results['ekf'].n_gps_updates}")
+    
+    return results, lat, lon
+
+if __name__ == "__main__":
+    results, lat, lon = verify_pipeline()
+    print("\n✅ Pipeline frozen and ready for Sync 3!")

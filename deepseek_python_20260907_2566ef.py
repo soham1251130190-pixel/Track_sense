@@ -1,0 +1,1 @@
+R_gps = diag([24.5, 25.2])  # meters^2

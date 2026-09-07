@@ -1,0 +1,2 @@
+velocity_variance_ms2 = exp(velocity_log_variance) / 3.6**2
+R = diag([velocity_variance_ms2, 0.1])

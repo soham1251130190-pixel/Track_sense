@@ -1,0 +1,3 @@
+# To reproduce tuning:
+python collect_innovations.py   # Collects NIS data
+python apply_tuning_and_verify.py  # Applies and verifies
