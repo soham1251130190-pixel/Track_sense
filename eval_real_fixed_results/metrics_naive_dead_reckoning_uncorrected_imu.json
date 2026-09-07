@@ -1,0 +1,60 @@
+{
+  "prediction_name": "Naive Dead Reckoning (Uncorrected IMU)",
+  "pass_fail": {
+    "passed": false,
+    "target_drift_pct": 10.0,
+    "actual_max_drift_pct": 388.22196249496767,
+    "actual_mean_drift_pct": 169.08151231074228,
+    "summary": "FAIL: One or more blackout segments exceeded target drift ceiling of <10.0%. Max drift observed: 388.22% (Mean: 169.08%)."
+  },
+  "overall_metrics": {
+    "rmse_m": 1283.3287057621744,
+    "mae_m": 623.2870648163095,
+    "max_error_m": 4767.3289931505,
+    "percentile_95_m": 3501.7077526629887,
+    "mean_drift_pct": 169.08151231074228,
+    "max_drift_pct": 388.22196249496767,
+    "total_blackout_distance_m": 1713.7396355113974
+  },
+  "segment_metrics": [
+    {
+      "segment_name": "30s_blackout",
+      "start_time_s": 20.0,
+      "end_time_s": 50.0,
+      "duration_s": 30.0,
+      "distance_traveled_m": 0.0,
+      "end_drift_distance_m": 54.71562667194244,
+      "drift_percentage": 0.0,
+      "rmse_m": 22.97654587648095,
+      "mae_m": 16.547744049388445,
+      "max_error_m": 54.71562667194244,
+      "passed_target": true
+    },
+    {
+      "segment_name": "60s_blackout",
+      "start_time_s": 70.0,
+      "end_time_s": 130.0,
+      "duration_s": 60.0,
+      "distance_traveled_m": 485.7490904859352,
+      "end_drift_distance_m": 578.1510728019318,
+      "drift_percentage": 119.02257443725921,
+      "rmse_m": 244.45794025133117,
+      "mae_m": 177.1567677651922,
+      "max_error_m": 578.1510728019318,
+      "passed_target": false
+    },
+    {
+      "segment_name": "120s_blackout",
+      "start_time_s": 150.0,
+      "end_time_s": 270.0,
+      "duration_s": 120.0,
+      "distance_traveled_m": 1227.9905450254623,
+      "end_drift_distance_m": 4767.3289931505,
+      "drift_percentage": 388.22196249496767,
+      "rmse_m": 2020.8577717004891,
+      "mae_m": 1464.1208210351224,
+      "max_error_m": 4767.3289931505,
+      "passed_target": false
+    }
+  ]
+}

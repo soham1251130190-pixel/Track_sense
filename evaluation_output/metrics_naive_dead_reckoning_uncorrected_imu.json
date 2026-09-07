@@ -1,0 +1,47 @@
+{
+  "prediction_name": "Naive Dead Reckoning (Uncorrected IMU)",
+  "pass_fail": {
+    "passed": false,
+    "target_drift_pct": 10.0,
+    "actual_max_drift_pct": 38.91601025298333,
+    "actual_mean_drift_pct": 27.684541869700798,
+    "summary": "FAIL: One or more blackout segments exceeded target drift ceiling of <10.0%. Max drift observed: 38.92% (Mean: 27.68%)."
+  },
+  "overall_metrics": {
+    "rmse_m": 37.33634602336117,
+    "mae_m": 14.844504168501924,
+    "max_error_m": 189.96934567798866,
+    "percentile_95_m": 90.76559821729043,
+    "mean_drift_pct": 27.684541869700798,
+    "max_drift_pct": 38.91601025298333,
+    "total_blackout_distance_m": 985.7325153812824
+  },
+  "segment_metrics": [
+    {
+      "segment_name": "Tunnel 1 (500m)",
+      "start_time_s": 40.0,
+      "end_time_s": 70.0,
+      "duration_s": 30.0,
+      "distance_traveled_m": 497.5803527031325,
+      "end_drift_distance_m": 81.8672610842256,
+      "drift_percentage": 16.45307348641827,
+      "rmse_m": 35.43948526932049,
+      "mae_m": 26.105343592990412,
+      "max_error_m": 81.8672610842256,
+      "passed_target": false
+    },
+    {
+      "segment_name": "Tunnel 2 (500m)",
+      "start_time_s": 120.0,
+      "end_time_s": 150.0,
+      "duration_s": 30.0,
+      "distance_traveled_m": 488.15216267814986,
+      "end_drift_distance_m": 189.96934567798866,
+      "drift_percentage": 38.91601025298333,
+      "rmse_m": 84.30930725668765,
+      "mae_m": 62.96168141802112,
+      "max_error_m": 189.96934567798866,
+      "passed_target": false
+    }
+  ]
+}

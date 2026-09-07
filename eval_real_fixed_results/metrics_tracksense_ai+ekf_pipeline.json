@@ -1,0 +1,60 @@
+{
+  "prediction_name": "TrackSense AI+EKF Pipeline",
+  "pass_fail": {
+    "passed": false,
+    "target_drift_pct": 10.0,
+    "actual_max_drift_pct": 88.75203200887385,
+    "actual_mean_drift_pct": 57.77360179774166,
+    "summary": "FAIL: One or more blackout segments exceeded target drift ceiling of <10.0%. Max drift observed: 88.75% (Mean: 57.77%)."
+  },
+  "overall_metrics": {
+    "rmse_m": 399.6633694004581,
+    "mae_m": 249.97141133706944,
+    "max_error_m": 1039.543127420639,
+    "percentile_95_m": 978.8558467373817,
+    "mean_drift_pct": 57.77360179774166,
+    "max_drift_pct": 88.75203200887385,
+    "total_blackout_distance_m": 1713.7396355113974
+  },
+  "segment_metrics": [
+    {
+      "segment_name": "30s_blackout",
+      "start_time_s": 20.0,
+      "end_time_s": 50.0,
+      "duration_s": 30.0,
+      "distance_traveled_m": 0.0,
+      "end_drift_distance_m": 0.30382254808587594,
+      "drift_percentage": 0.0,
+      "rmse_m": 0.23531267355007093,
+      "mae_m": 0.22148033121189778,
+      "max_error_m": 0.3305177520724576,
+      "passed_target": true
+    },
+    {
+      "segment_name": "60s_blackout",
+      "start_time_s": 70.0,
+      "end_time_s": 130.0,
+      "duration_s": 60.0,
+      "distance_traveled_m": 485.7490904859352,
+      "end_drift_distance_m": 431.11218827089084,
+      "drift_percentage": 88.75203200887385,
+      "rmse_m": 181.12425564281267,
+      "mae_m": 166.8569691948861,
+      "max_error_m": 431.9406091636161,
+      "passed_target": false
+    },
+    {
+      "segment_name": "120s_blackout",
+      "start_time_s": 150.0,
+      "end_time_s": 270.0,
+      "duration_s": 120.0,
+      "distance_traveled_m": 1227.9905450254623,
+      "end_drift_distance_m": 1038.4965412038416,
+      "drift_percentage": 84.56877338435113,
+      "rmse_m": 614.5604312775152,
+      "mae_m": 533.4140188369481,
+      "max_error_m": 1039.312906713491,
+      "passed_target": false
+    }
+  ]
+}

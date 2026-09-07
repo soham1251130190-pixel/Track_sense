@@ -1,0 +1,47 @@
+{
+  "prediction_name": "Frozen GNSS Baseline (Standard App)",
+  "pass_fail": {
+    "passed": false,
+    "target_drift_pct": 10.0,
+    "actual_max_drift_pct": 100.33901109320811,
+    "actual_mean_drift_pct": 100.33416551325882,
+    "summary": "FAIL: One or more blackout segments exceeded target drift ceiling of <10.0%. Max drift observed: 100.34% (Mean: 100.33%)."
+  },
+  "overall_metrics": {
+    "rmse_m": 165.3285772122608,
+    "mae_m": 82.74074526797128,
+    "max_error_m": 499.2672052964201,
+    "percentile_95_m": 420.52990779605096,
+    "mean_drift_pct": 100.33416551325882,
+    "max_drift_pct": 100.33901109320811,
+    "total_blackout_distance_m": 985.7325153812824
+  },
+  "segment_metrics": [
+    {
+      "segment_name": "Tunnel 1 (500m)",
+      "start_time_s": 40.0,
+      "end_time_s": 70.0,
+      "duration_s": 30.0,
+      "distance_traveled_m": 497.5803527031325,
+      "end_drift_distance_m": 499.2672052964201,
+      "drift_percentage": 100.33901109320811,
+      "rmse_m": 290.12851788864435,
+      "mae_m": 251.80514737366437,
+      "max_error_m": 499.2672052964201,
+      "passed_target": false
+    },
+    {
+      "segment_name": "Tunnel 2 (500m)",
+      "start_time_s": 120.0,
+      "end_time_s": 150.0,
+      "duration_s": 30.0,
+      "distance_traveled_m": 488.15216267814986,
+      "end_drift_distance_m": 489.75974505473056,
+      "drift_percentage": 100.32931993330953,
+      "rmse_m": 282.53614594582666,
+      "mae_m": 244.63932423416335,
+      "max_error_m": 489.75974505473056,
+      "passed_target": false
+    }
+  ]
+}

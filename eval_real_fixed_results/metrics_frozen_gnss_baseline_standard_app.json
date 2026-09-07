@@ -1,0 +1,60 @@
+{
+  "prediction_name": "Frozen GNSS Baseline (Standard App)",
+  "pass_fail": {
+    "passed": false,
+    "target_drift_pct": 10.0,
+    "actual_max_drift_pct": 88.97743248987928,
+    "actual_mean_drift_pct": 57.86218117568203,
+    "summary": "FAIL: One or more blackout segments exceeded target drift ceiling of <10.0%. Max drift observed: 88.98% (Mean: 57.86%)."
+  },
+  "overall_metrics": {
+    "rmse_m": 397.3382269690921,
+    "mae_m": 247.11782969568728,
+    "max_error_m": 1038.9918837665034,
+    "percentile_95_m": 978.8470693107548,
+    "mean_drift_pct": 57.86218117568203,
+    "max_drift_pct": 88.97743248987928,
+    "total_blackout_distance_m": 1713.7396355113974
+  },
+  "segment_metrics": [
+    {
+      "segment_name": "30s_blackout",
+      "start_time_s": 20.0,
+      "end_time_s": 50.0,
+      "duration_s": 30.0,
+      "distance_traveled_m": 0.0,
+      "end_drift_distance_m": 0.0,
+      "drift_percentage": 0.0,
+      "rmse_m": 0.0,
+      "mae_m": 0.0,
+      "max_error_m": 0.0,
+      "passed_target": true
+    },
+    {
+      "segment_name": "60s_blackout",
+      "start_time_s": 70.0,
+      "end_time_s": 130.0,
+      "duration_s": 60.0,
+      "distance_traveled_m": 485.7490904859352,
+      "end_drift_distance_m": 432.2070690573256,
+      "drift_percentage": 88.97743248987928,
+      "rmse_m": 181.55020370492028,
+      "mae_m": 167.24481308013873,
+      "max_error_m": 432.2070690573256,
+      "passed_target": false
+    },
+    {
+      "segment_name": "120s_blackout",
+      "start_time_s": 150.0,
+      "end_time_s": 270.0,
+      "duration_s": 120.0,
+      "distance_traveled_m": 1227.9905450254623,
+      "end_drift_distance_m": 1038.9918837665034,
+      "drift_percentage": 84.60911103716681,
+      "rmse_m": 614.7125899617124,
+      "mae_m": 533.5881402380504,
+      "max_error_m": 1038.9918837665034,
+      "passed_target": false
+    }
+  ]
+}
