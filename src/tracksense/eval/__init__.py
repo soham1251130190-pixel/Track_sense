@@ -16,6 +16,7 @@ from tracksense.eval.datatypes import (
 )
 from tracksense.eval.metrics import EvaluationMetrics
 from tracksense.eval.harness import EvaluationHarness
+from tracksense.eval.blackout import GNSSBlackoutSimulator, simulate_gnss_blackout
 
 __all__ = [
     "BlackoutInterval",
@@ -26,4 +27,6 @@ __all__ = [
     "PassFailStatus",
     "EvaluationMetrics",
     "EvaluationHarness",
+    "GNSSBlackoutSimulator",
+    "simulate_gnss_blackout",
 ]
