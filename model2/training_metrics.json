@@ -1,0 +1,16 @@
+{
+  "epochs": 50,
+  "best_epoch": 23,
+  "best_val_loss": 1.4711057786300323,
+  "best_val_rmse_kmh": 2.374556541442871,
+  "test_loss": 9.916991822296416e+21,
+  "test_rmse_kmh": 3.5204696655273438,
+  "test_mae_kmh": 2.539015531539917,
+  "test_rmse_mps": 0.9779082536697388,
+  "test_mae_mps": 0.7052820920944214,
+  "training_time_sec": 2240.2499549388885,
+  "total_samples": 53247,
+  "train_samples": 18601,
+  "val_samples": 3986,
+  "test_samples": 3987
+}
