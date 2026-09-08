@@ -1,0 +1,15 @@
+Metadata-Version: 2.4
+Name: tracksense
+Version: 0.1.0
+Summary: AI-Based Navigation & Evaluation Engine for Signal-Denied Environments
+Author: TrackSense Team
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Requires-Dist: numpy>=1.22.0
+Requires-Dist: scipy>=1.8.0
+Requires-Dist: pandas>=1.4.0
+Requires-Dist: matplotlib>=3.5.0
+Requires-Dist: seaborn>=0.11.0
+Requires-Dist: pyproj>=3.3.0
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0.0; extra == "dev"
